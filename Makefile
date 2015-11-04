@@ -1,12 +1,12 @@
 CXX = g++
-CXXFLAGS = -O0 -g -Wall -std=c++0x
+CXXFLAGS = -O0 -g -Wall -std=c++0x -march=native -msse4.1
 
 # Strict compiler options
 CXXFLAGS += -Werror -Wformat-security -Wignored-qualifiers -Winit-self \
 		-Wswitch-default -Wfloat-equal -Wshadow -Wpointer-arith \
 		-Wtype-limits -Wempty-body -Wlogical-op \
 		-Wmissing-field-initializers -Wctor-dtor-privacy \
-		-Wnon-virtual-dtor -Wstrict-null-sentinel -Wold-style-cast \
+		-Wnon-virtual-dtor -Wstrict-null-sentinel  \
 		-Woverloaded-virtual -Wsign-promo -Wextra -pedantic -Wno-deprecated
 
 # Directories with source code
@@ -71,6 +71,7 @@ bridge.touch: $(wildcard $(BRIDGE_INCLUDE_DIR)/*) \
 		$(wildcard $(BRIDGE_LIBRARY_DIR)/*)
 	mkdir -p $(BRIDGE_INCLUDE_DIR) $(BRIDGE_LIBRARY_DIR)
 	make -C $(dir $(BRIDGE_MAKE)) -f $(notdir $(BRIDGE_MAKE)) $(BRIDGE_TARGETS)
+	echo "strange make done"
 	mkdir -p $(OBJ_DIR) $(BIN_DIR) $(DEP_DIR)
 	echo "include deps.mk" > $@
 
